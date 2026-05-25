@@ -22,7 +22,7 @@ public class ClienteCartaoService {
 
     @Transactional(readOnly = true)
     public List<ClienteCartaoResponse> listarCartoesPorCpf(@Valid @NotNull ClienteCartaoRequest request) {
-        return clienteCartaoRepository.findByCpf(request.cpf())
+        return clienteCartaoRepository.findByCpfNormalizado(request.cpfNormalizado())
                 .stream()
                 .map(clienteCartaoMapper::toResponse)
                 .toList();

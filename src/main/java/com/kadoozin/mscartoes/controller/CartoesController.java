@@ -53,10 +53,9 @@ public class CartoesController {
 
     @GetMapping("/cliente")
     public ResponseEntity<List<ClienteCartaoResponse>> getCartoesByCpf(
-            @RequestParam("cpf") String cpf
+            @Valid ClienteCartaoRequest request
     ) {
         log.info("Solicitacao recebida para consulta de cartoes por cpf");
-        var request = new ClienteCartaoRequest(cpf);
         var cartoes = clienteCartaoService.listarCartoesPorCpf(request);
         return ResponseEntity.ok(cartoes);
     }
