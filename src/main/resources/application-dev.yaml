@@ -3,11 +3,19 @@ spring:
     service-registry:
       auto-registration:
         enabled: true
+
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USER:guest}
+    password: ${RABBITMQ_PASS:guest}
+
   datasource:
     url: jdbc:h2:mem:cartoesdb;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     username: sa
     password:
     driver-class-name: org.h2.Driver
+
   jpa:
     hibernate:
       ddl-auto: update
@@ -15,6 +23,7 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
   h2:
     console:
       enabled: true
@@ -38,3 +47,16 @@ eureka:
   instance:
     prefer-ip-address: true
     instance-id: ${spring.application.name}:${server.port}
+
+mq:
+  exchange: cartoes.ex
+  queues:
+    emissao-cartoes: emissao-cartoes
+
+rabbitmq:
+  exchange:
+    cliente: cliente.exchange
+  queue:
+    cliente-criado: cliente.criado.ms-cartoes.queue
+  routing-key:
+    cliente-criado: cliente.criado.rk
