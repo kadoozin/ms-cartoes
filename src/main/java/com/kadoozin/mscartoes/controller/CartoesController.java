@@ -2,8 +2,10 @@ package com.kadoozin.mscartoes.controller;
 
 import com.kadoozin.mscartoes.dto.request.CartaoRequest;
 import com.kadoozin.mscartoes.dto.request.ClienteCartaoRequest;
+import com.kadoozin.mscartoes.dto.request.VinculoCartaoRequest;
 import com.kadoozin.mscartoes.dto.response.CartaoResponse;
 import com.kadoozin.mscartoes.dto.response.ClienteCartaoResponse;
+import com.kadoozin.mscartoes.dto.response.VinculoCartaoResponse;
 import com.kadoozin.mscartoes.service.CartaoService;
 import com.kadoozin.mscartoes.service.ClienteCartaoService;
 import jakarta.validation.Valid;
@@ -24,6 +26,13 @@ public class CartoesController {
     private final CartaoService cartaoService;
     private final ClienteCartaoService clienteCartaoService;
 
+
+    @GetMapping
+    public ResponseEntity<List<CartaoResponse>> findAll() {
+        log.info("Solicitacao recebida para listar todos os cartoes");
+        var cartoes = cartaoService.findAll();
+        return ResponseEntity.ok(cartoes);
+    }
 
     @PostMapping
     public ResponseEntity<CartaoResponse> save(@Valid @RequestBody CartaoRequest cartaoRequest) {
@@ -58,6 +67,17 @@ public class CartoesController {
         log.info("Solicitacao recebida para consulta de cartoes por cpf");
         var cartoes = clienteCartaoService.listarCartoesPorCpf(request);
         return ResponseEntity.ok(cartoes);
+    }
+
+    @PostMapping("/{id}/vincular")
+    public ResponseEntity<VinculoCartaoResponse> vincular(
+            @PathVariable("id") Integer id,
+            @Valid @RequestBody VinculoCartaoRequest request
+    ) {
+        log.info("Solicitacao recebida para vincular cartao {} ao cliente CPF: {}", id, request.cpf());
+        var response = clienteCartaoService.vincularCartaoAoCliente(id, request);
+        log.info("Vinculo realizado com sucesso para o cliente: {}", response.nomeCliente());
+        return ResponseEntity.ok(response);
     }
 
 }

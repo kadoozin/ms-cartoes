@@ -7,6 +7,7 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface ClienteCartaoMapper {
+
     @Mapping(source = "cartao.nome", target = "nome")
     @Mapping(source = "cartao.bandeiraCartao", target = "bandeira")
     @Mapping(source = "limite", target = "limite")
