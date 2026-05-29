@@ -8,8 +8,12 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface CartaoMapper {
+
     @Mapping(source = "id", target = "cartaoId")
     CartaoResponse toResponse(Cartao cartao);
 
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "rendaMinima", ignore = true)
+    @Mapping(target = "limiteBasico", ignore = true)
     Cartao toEntity(CartaoRequest request);
 }

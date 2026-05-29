@@ -29,9 +29,6 @@ public class Cartao {
     @Column(nullable = false)
     private BigDecimal rendaMinima;
 
-    @Column
-    private BigDecimal rendaMaxima;
-
     @Column(nullable = false)
     private BigDecimal limiteBasico;
 }

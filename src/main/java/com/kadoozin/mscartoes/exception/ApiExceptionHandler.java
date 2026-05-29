@@ -59,9 +59,9 @@ public class ApiExceptionHandler {
         return ResponseEntity.badRequest().body(problemDetail);
     }
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<ProblemDetail> handleIllegalArgumentException(IllegalArgumentException ex) {
-        log.warn("Erro de regra de negocio: {}", ex.getMessage());
+    @ExceptionHandler(RegraDeNegocioException.class)
+    public ResponseEntity<ProblemDetail> handleRegraDeNegocio(RegraDeNegocioException ex) {
+        log.warn("Regra de negocio violada: {}", ex.getMessage());
         ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
         problemDetail.setTitle("Regra de negocio invalida");
         problemDetail.setDetail(ex.getMessage());

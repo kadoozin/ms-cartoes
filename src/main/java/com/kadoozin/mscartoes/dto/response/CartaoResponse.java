@@ -11,7 +11,6 @@ public record CartaoResponse(
         String nome,
         BandeiraCartao bandeiraCartao,
         BigDecimal rendaMinima,
-        BigDecimal rendaMaxima,
         BigDecimal limiteBasico
 ) {
 }
