@@ -52,7 +52,7 @@ public class ClienteCartaoService {
         var clienteCartao = new ClienteCartao();
         clienteCartao.setCpf(cpfNormalizado);
         clienteCartao.setCartao(cartao);
-        clienteCartao.setLimite(request.limiteAprovado());
+        clienteCartao.setLimite(cartao.getLimiteBasico());
         clienteCartaoRepository.save(clienteCartao);
 
         return new VinculoCartaoResponse(
@@ -60,7 +60,7 @@ public class ClienteCartaoService {
                 cpfNormalizado,
                 dadosCliente.endereco(),
                 cartao.getNome(),
-                request.limiteAprovado()
+                cartao.getBandeiraCartao().name()
         );
     }
 }

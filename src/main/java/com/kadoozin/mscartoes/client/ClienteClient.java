@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 @FeignClient(name = "ms-clientes")
 public interface ClienteClient {
 
-    @GetMapping("/clientes/cartao/{cpf}")
+    @GetMapping("/clientes/{cpf}")
     ClienteResponse getClienteByCpf(@PathVariable("cpf") String cpf);
 }
