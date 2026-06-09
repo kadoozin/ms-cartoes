@@ -25,7 +25,7 @@ rabbitmq:
     cliente-criado: cliente.criado.rk
 
 server:
-  port: 0
+  port: ${PORT:8082}
 
   error:
     include-stacktrace: never
@@ -49,11 +49,12 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://admin-eureka-user:admin-eureka-password@localhost:8761/eureka/
+      defaultZone: http://admin-eureka-username:admin-eureka-password@eureka-server:8761/eureka
     healthcheck:
       enabled: true
 
   instance:
+    hostname: ${HOSTNAME:localhost}
     prefer-ip-address: true
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
     health-check-url-path: /actuator/health
